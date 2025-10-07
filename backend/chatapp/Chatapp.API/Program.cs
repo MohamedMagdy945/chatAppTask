@@ -19,6 +19,7 @@ namespace Chatapp.API
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<UserMapping>();
+                cfg.AddProfile<MessageMapping>();
             });
 
 

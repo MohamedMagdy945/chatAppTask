@@ -43,5 +43,13 @@ namespace Chatapp.API.Controllers
             
             return Ok("user created successfully");
         }
+
+        [HttpGet("GetAllUser")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var usersDTO = _mapper.Map<IEnumerable<ReturnUserDTO>>(users);
+            return Ok(usersDTO);
+        }
     }
 }

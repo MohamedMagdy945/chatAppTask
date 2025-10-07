@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Chatapp.Core\Chatapp.Core.csproj" />
   </ItemGroup>
 

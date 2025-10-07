@@ -10,6 +10,10 @@ namespace Chatapp.API.Mapping
         {
             CreateMap<UserDTO, User>().ForMember(dest => dest.ProfileImagePath, opt => opt.Ignore())
             .ReverseMap();
+
+            CreateMap<ReturnUserDTO, User>().ForMember(dest => dest.ProfileImagePath, opt => opt.Ignore())
+            .ReverseMap();
         }
+       
     }
 }

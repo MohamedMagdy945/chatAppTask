@@ -8,7 +8,7 @@ namespace Chatapp.Infrastructure.Repositories
 {
     public class GenericRepository<T> : IGenenricRepository<T> where T : class
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
         public GenericRepository(AppDbContext context)
         {
             _context = context;

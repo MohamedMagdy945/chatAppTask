@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Entities\" />
     <Folder Include="Sharing\" />
     <Folder Include="Services\" />

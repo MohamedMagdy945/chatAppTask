@@ -24,7 +24,6 @@ namespace Chatapp.API
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
@@ -35,7 +34,9 @@ namespace Chatapp.API
             app.UseAuthorization();
 
 
+
             app.MapControllers();
+            app.UseStaticFiles();
 
             app.Run();
         }

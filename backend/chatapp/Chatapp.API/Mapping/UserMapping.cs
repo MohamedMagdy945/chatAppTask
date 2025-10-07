@@ -8,7 +8,8 @@ namespace Chatapp.API.Mapping
     {
         public UserMapping()
         {
-            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<UserDTO, User>().ForMember(dest => dest.ProfileImagePath, opt => opt.Ignore())
+            .ReverseMap();
         }
     }
 }

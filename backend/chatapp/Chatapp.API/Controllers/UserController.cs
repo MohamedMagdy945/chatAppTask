@@ -23,8 +23,24 @@ namespace Chatapp.API.Controllers
                 return BadRequest("Email already exists.");
             }
 
+            var ImageUrl = string.Empty;
+            try
+            {
+                if (userDTO.ProfileImage != null && userDTO.ProfileImage.Length > 0)
+                {
+                    ImageUrl = await _unitOfWork.ImageManagmentService.AddImageAsync(userDTO.ProfileImage);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Image upload failed: {ex.Message}");
+            }
+
+
             var user = _mapper.Map<User>(userDTO);
+            user.ProfileImagePath = ImageUrl;
             await _unitOfWork.UserRepository.AddAsync(user);
+            
             return Ok("user created successfully");
         }
     }

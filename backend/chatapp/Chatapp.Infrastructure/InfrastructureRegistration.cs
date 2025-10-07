@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Chatapp.Infrastructure.Data;
 using Chatapp.Core.Interfaces;
 using Chatapp.Infrastructure.Repositories;
+using Chatapp.Core.ServicesInterface;
+using Chatapp.Infrastructure.Services;
 
 namespace Chatapp.Infrastructure
 {
@@ -12,6 +14,8 @@ namespace Chatapp.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IImageManagmentService, ImageManagmentService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddDbContext<AppDbContext>(op =>
             {

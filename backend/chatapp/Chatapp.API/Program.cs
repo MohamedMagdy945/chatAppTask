@@ -20,6 +20,7 @@ namespace Chatapp.API
             {
                 cfg.AddProfile<UserMapping>();
                 cfg.AddProfile<MessageMapping>();
+                cfg.AddProfile<GroupMapping>();
             });
 
 

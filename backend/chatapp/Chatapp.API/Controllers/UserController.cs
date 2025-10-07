@@ -15,7 +15,7 @@ namespace Chatapp.API.Controllers
         public async Task<IActionResult> CreateUser(UserDTO userDTO)
         {
             if (userDTO is null) {
-                return BadRequest("User data is null.");
+                return BadRequest("User data is null");
             }
 
             if (await _unitOfWork.UserRepository.EmailExistsAsync(userDTO.Email))

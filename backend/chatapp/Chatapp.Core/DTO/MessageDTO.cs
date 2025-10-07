@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Chatapp.Core.DTO
 {
-    public class MessageDTO
+    public record MessageDTO
     {
 
         public int SenderId { get; set; }

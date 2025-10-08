@@ -22,6 +22,16 @@ namespace Chatapp.API
                 cfg.AddProfile<MessageMapping>();
                 cfg.AddProfile<GroupMapping>();
             });
+            builder.Services.AddCors(
+                  options => options.AddPolicy("CORSPolicy", builder =>
+                  {
+                      builder.WithOrigins("http://localhost:4200")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowCredentials();
+                  }
+            ));
+
 
 
             var app = builder.Build();
@@ -33,11 +43,14 @@ namespace Chatapp.API
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CORSPolicy");
+
             app.UseAuthorization();
 
 
 
             app.MapControllers();
+
             app.UseStaticFiles();
 
             app.Run();

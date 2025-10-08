@@ -41,7 +41,7 @@ namespace Chatapp.API.Controllers
             user.ProfileImagePath = ImageUrl;
             await _unitOfWork.UserRepository.AddAsync(user);
             
-            return Ok("user created successfully");
+            return Ok(userDTO);
         }
 
         [HttpGet("GetAllUser")]

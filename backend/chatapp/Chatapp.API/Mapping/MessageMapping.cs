@@ -10,6 +10,8 @@ namespace Chatapp.API.Mapping
         {
             CreateMap<MessageDTO, Message>().ForMember(dest => dest.FileUrl, opt => opt.Ignore())
             .ReverseMap();
+
+            CreateMap<Message, ReturnMessageDTO>().ForMember(dest => dest.Type, opt => opt.MapFrom(src => (int) src.Type));
         }
     }
 }

@@ -41,7 +41,26 @@ namespace Chatapp.API.Controllers
             user.ProfileImagePath = ImageUrl;
             await _unitOfWork.UserRepository.AddAsync(user);
             
-            return Ok(userDTO);
+            return Ok(user);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDTO LoginDTO)
+        {
+            if (LoginDTO is null)
+            {
+                return BadRequest("User data is null");
+            }
+
+            var user = await _unitOfWork.UserRepository.GetUserByEmailAndPasswordAsync(LoginDTO);
+
+            if (user is null)
+            {
+                return BadRequest("UserName or Password Is Not Valid");
+            }
+            var returnUserDTO = _mapper.Map<ReturnUserDTO>(user);
+
+            return Ok(returnUserDTO);
         }
 
         [HttpGet("GetAllUser")]

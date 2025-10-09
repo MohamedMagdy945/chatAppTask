@@ -24,4 +24,14 @@ export class AccountService {
       })
     );
   }
+
+  login(data: any): Observable<any> {
+
+    return this.http.post(`${this.baseUrl}User/Login`, data).pipe(
+      tap((user: any) => {
+        localStorage.setItem('userName', user.userName);
+        this.currentUserSource.next(user.userName)
+      })
+    );
+  }
 }

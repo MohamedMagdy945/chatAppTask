@@ -10,6 +10,12 @@ namespace Chatapp.Core.DTO
         public IFormFile? ProfileImage { get; set; } 
 
     }
+
+    public record LoginDTO
+    {
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
+    }
     public record ReturnUserDTO
     {
         public int Id { get; set; }

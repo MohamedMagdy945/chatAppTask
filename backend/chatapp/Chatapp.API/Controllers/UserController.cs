@@ -40,8 +40,10 @@ namespace Chatapp.API.Controllers
             var user = _mapper.Map<User>(userDTO);
             user.ProfileImagePath = ImageUrl;
             await _unitOfWork.UserRepository.AddAsync(user);
-            
-            return Ok(user);
+            var returnUserDTO = _mapper.Map<ReturnUserDTO>(user);
+
+
+            return Ok(returnUserDTO);
         }
 
         [HttpPost("Login")]

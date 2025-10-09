@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { IUser } from '../Models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -15,23 +15,27 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
-  createUser(formData: FormData): Observable<any> {
-
-    return this.http.post(`${this.baseUrl}User/CreateUser`, formData).pipe(
+  createUser(formData: FormData): Observable<IUser> {
+    return this.http.post<IUser>(`${this.baseUrl}User/CreateUser`, formData).pipe(
       tap((user: any) => {
-        localStorage.setItem('userName', user.userName);
-        this.currentUserSource.next(user.userName)
+        localStorage.setItem('user', user.stringify(user));
+        this.currentUserSource.next(user);
       })
     );
   }
 
-  login(data: any): Observable<any> {
-
+  login(data: any): Observable<IUser> {
     return this.http.post(`${this.baseUrl}User/Login`, data).pipe(
       tap((user: any) => {
-        localStorage.setItem('userName', user.userName);
-        this.currentUserSource.next(user.userName)
+        localStorage.setItem('user', user);
+        this.currentUserSource.next(user);
       })
     );
+  }
+  loadCurrentUser() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.currentUserSource.next(JSON.parse(user));
+    }
   }
 }

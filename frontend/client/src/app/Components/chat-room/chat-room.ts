@@ -84,7 +84,12 @@ export class ChatRoom implements OnInit, OnChanges {
         next: (res: any) => {
           this.groupId = res.groupId;
           this.message.groupId = res.groupId;
-          this.messageList.push(this.message);
+          const newMessage: IMessage = {
+            ...this.message,
+            id: Date.now() + Math.random(),
+          };
+          this.messageList.push(newMessage);
+          this.message.content = '';
         },
         error: (err) => {
           console.log(err);

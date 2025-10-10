@@ -1,6 +1,8 @@
 
 using Chatapp.API.Mapping;
 using Chatapp.Infrastructure;
+using Chatapp.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chatapp.API
 {
@@ -52,6 +54,25 @@ namespace Chatapp.API
             app.MapControllers();
 
             app.UseStaticFiles();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    var context = services.GetRequiredService<AppDbContext>();
+
+                    context.Database.EnsureCreated();
+
+                    SeedData.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($" Error during DB setup: {ex.Message}");
+                }
+            }
+
 
             app.Run();
         }

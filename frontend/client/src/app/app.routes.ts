@@ -4,6 +4,7 @@ import { Message } from './Components/message/message';
 import { Login } from './Components/login/login';
 import { Register } from './Components/register/register';
 import { Contact } from './Components/contact/contact';
+import { Group } from './Components/group/group';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -11,4 +12,5 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'contact', component: Contact },
+  { path: 'group', component: Group },
 ];

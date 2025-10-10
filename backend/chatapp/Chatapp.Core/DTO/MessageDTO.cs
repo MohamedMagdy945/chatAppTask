@@ -7,7 +7,6 @@ namespace Chatapp.Core.DTO
 {
     public record MessageDTO
     {
-
         public int SenderId { get; set; }
 
         public int? ReceiverId { get; set; }
@@ -30,7 +29,9 @@ namespace Chatapp.Core.DTO
 
         public string? FileUrl { get; set; }
 
-        public int Type { get; set; } 
+        public int Type { get; set; }
+        public DateTime SentAt { get; set; }
+
     }
 
 }

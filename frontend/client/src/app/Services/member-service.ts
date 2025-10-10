@@ -11,7 +11,7 @@ export class MemberService {
   private baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
-  getALLUser(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.baseUrl}User/GetAllUser`);
+  getALLUser(userId: number): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.baseUrl}User/GetAllUser/${userId}`);
   }
 }

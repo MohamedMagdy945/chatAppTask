@@ -46,5 +46,6 @@ namespace Chatapp.Infrastructure.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
     }
 }

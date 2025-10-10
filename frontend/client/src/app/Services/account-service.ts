@@ -17,8 +17,8 @@ export class AccountService {
 
   createUser(formData: FormData): Observable<IUser> {
     return this.http.post<IUser>(`${this.baseUrl}User/CreateUser`, formData).pipe(
-      tap((user: any) => {
-        localStorage.setItem('user', user.stringify(user));
+      tap((user: IUser) => {
+        localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
       })
     );
@@ -27,7 +27,7 @@ export class AccountService {
   login(data: any): Observable<IUser> {
     return this.http.post(`${this.baseUrl}User/Login`, data).pipe(
       tap((user: any) => {
-        localStorage.setItem('user', user);
+        localStorage.setItem('user', JSON.stringify(user));
         this.currentUserSource.next(user);
       })
     );

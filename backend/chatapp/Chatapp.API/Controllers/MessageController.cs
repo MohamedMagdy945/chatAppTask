@@ -41,6 +41,9 @@ namespace Chatapp.API.Controllers
                 groupId = MessageDTO.GroupId
             });
         }
+
+       
+
         [HttpGet("GetMessages/{GroupId}")]
         public async Task<IActionResult> GetMessages(int GroupId)
         {
@@ -48,5 +51,7 @@ namespace Chatapp.API.Controllers
             var messagesDTO = _mapper.Map<IReadOnlyList<ReturnMessageDTO>>(messages);
             return Ok(messagesDTO);
         }
+
+        
     }
 }

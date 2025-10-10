@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Chatapp.Core.DTO;
 using Chatapp.Core.Entities;
 using Chatapp.Core.Interfaces;
@@ -11,8 +12,17 @@ namespace Chatapp.API.Controllers
         public GroupController(IUnitOfWork unOfWork, IMapper mapper) : base(unOfWork, mapper)
         {
         }
-        [HttpPost("addgroup")]
-        public async Task<IActionResult> AddGroup(GroupDTO groupDTO)
+
+
+        [HttpGet("GetAllGroup")]
+        public async Task<IActionResult> GetAllGroup()
+        {
+            var groups = await _unitOfWork.GroupRepository.getAllGroup();
+            var groupsDTO = _mapper.Map<IEnumerable<GroupDTO>>(groups);
+            return Ok(groups);
+        }
+        [HttpPost("createGroup")]
+        public async Task<IActionResult> CreateGroup(GroupDTO groupDTO)
         {
             if (groupDTO is null)
             {
@@ -38,7 +48,6 @@ namespace Chatapp.API.Controllers
             group.Members.Add(new GroupMember() { UserId = groupDTO.UserCreatedId , privateGroup = false});
             group.GroupImagePath = ImageUrl;
             await _unitOfWork.GroupRepository.AddAsync(group);
-
             return Ok("Group created successfully");
         }
         [HttpPost("subscribeToGroup")]
@@ -59,5 +68,12 @@ namespace Chatapp.API.Controllers
             group.Members.Add(new GroupMember() { UserId = groupDTO.SubscribeUserId  });
             return Ok("Group created successfully");
         }
+        [HttpGet("GetGroupId/{senderId}/{receivedId}")]
+        public async Task<IActionResult> GetGroup(int senderId, int receivedId)
+        {
+            var groupId = await _unitOfWork.GroupRepository.GetCommonGroup(senderId,receivedId);
+            return Ok(groupId);
+        }
+
     }
 }

@@ -42,7 +42,6 @@ namespace Chatapp.API.Controllers
             await _unitOfWork.UserRepository.AddAsync(user);
             var returnUserDTO = _mapper.Map<ReturnUserDTO>(user);
 
-
             return Ok(returnUserDTO);
         }
 
@@ -65,12 +64,30 @@ namespace Chatapp.API.Controllers
             return Ok(returnUserDTO);
         }
 
-        [HttpGet("GetAllUser")]
-        public async Task<IActionResult> GetAllUser()
+        [HttpGet("GetAllUser/{senderId}")]
+        public async Task<IActionResult> GetAllUser(int senderId)
+        {
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var userss= users.Where(u => u.Id != senderId);
+            var usersDTO = _mapper.Map<IEnumerable<ReturnUserDTO>>(userss);
+            return Ok(usersDTO);
+        }
+
+        [HttpGet("GetAllUserForMember/{senderId}")]
+        public async Task<IActionResult> GetAllUserGetAllUserForMember(int senderId)
         {
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             var usersDTO = _mapper.Map<IEnumerable<ReturnUserDTO>>(users);
             return Ok(usersDTO);
         }
+
+
+        //[HttpGet("GetCommonUser/{senderId}")]
+        //public async Task<IActionResult> GetCommonUser(int senderId)
+        //{
+        //    var users = await _unitOfWork.UserRepository.GetAllAsync();
+        //    var usersDTO = _mapper.Map<IEnumerable<ReturnUserDTO>>(users);
+        //    return Ok(usersDTO);
+        //}
     }
 }

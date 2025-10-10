@@ -3,6 +3,7 @@ import { MemberService } from '../../Services/member-service';
 import { IUser } from '../../Models/user';
 import { environment } from '../../../environments/environment.development';
 import { ChatRoom } from '../chat-room/chat-room';
+import { AccountService } from '../../Services/account-service';
 
 @Component({
   selector: 'app-contact',
@@ -15,12 +16,20 @@ export class Contact implements OnInit {
   users: IUser[] | null = null;
   baseURL = environment.baseUrl;
   isOpen = false;
-  constructor(private memberService: MemberService) {}
+  currentUser!: IUser;
+  constructor(private accountService: AccountService, private memberService: MemberService) {}
   ngOnInit(): void {
-    this.memberService.getALLUser().subscribe({
+    this.accountService.currentUser$.subscribe({
+      next: (res) => {
+        this.currentUser = res;
+        this.getAllMember();
+      },
+    });
+  }
+  private getAllMember() {
+    this.memberService.getALLUser(this.currentUser.id).subscribe({
       next: (res) => {
         this.users = res;
-        console.log(res);
       },
       error: (err) => {
         console.log(err);

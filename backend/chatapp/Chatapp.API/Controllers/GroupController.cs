@@ -18,8 +18,8 @@ namespace Chatapp.API.Controllers
         public async Task<IActionResult> GetAllGroup()
         {
             var groups = await _unitOfWork.GroupRepository.getAllGroup();
-            var groupsDTO = _mapper.Map<IEnumerable<GroupDTO>>(groups);
-            return Ok(groups);
+            var groupsDTO = _mapper.Map<IEnumerable<ReturnGroupDTO>>(groups);
+            return Ok(groupsDTO);
         }
         [HttpPost("createGroup")]
         public async Task<IActionResult> CreateGroup(GroupDTO groupDTO)

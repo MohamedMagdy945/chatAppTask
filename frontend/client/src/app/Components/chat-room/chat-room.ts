@@ -6,8 +6,6 @@ import { GroupService } from '../../Services/group-service';
 import { FormsModule } from '@angular/forms';
 import { IMessage } from '../../Models/message';
 import { MessageService } from '../../Services/message-service';
-import { IGroup } from '../../Models/group';
-
 @Component({
   selector: 'app-chat-room',
   imports: [FormsModule],
@@ -28,7 +26,6 @@ export class ChatRoom implements OnInit, OnChanges {
   groupId!: number;
   baseURL = environment.baseUrl;
   @Input() recevieduser!: IUser;
-  @Input() receviedgroup!: IGroup;
   messageList: IMessage[] = [];
 
   senderUser!: IUser;

@@ -12,7 +12,7 @@ export class GroupService {
   constructor(private http: HttpClient) {}
 
   createGroup(formData: FormData) {
-    return this.http.post(`${this.baseUrl}User/GetAllUser`, formData);
+    return this.http.post(`${this.baseUrl}Group/createGroup`, formData);
   }
   getAllGroups(): Observable<IGroup[]> {
     return this.http.get<IGroup[]>(`${this.baseUrl}Group/GetAllGroup`);

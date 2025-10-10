@@ -28,6 +28,9 @@ export class Register {
     formData.append('email', this.email);
     formData.append('username', this.username);
     formData.append('password', this.password);
+    if (this.profileImage) {
+      formData.append('ProfileImage', this.profileImage);
+    }
 
     this._accountService.createUser(formData).subscribe({
       next: (res) => {

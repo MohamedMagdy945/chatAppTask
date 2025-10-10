@@ -10,6 +10,13 @@ namespace Chatapp.Core.DTO
         public int UserCreatedId { get; set; }
         public IFormFile? GroupImage { get; set; }
     }
+
+    public record ReturnGroupDTO
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = null!;
+        public string? GroupImagePath { get; set; }
+    }
     public record SubscribeGroupDTO
     {
         public int SubscribeUserId { get; set; }

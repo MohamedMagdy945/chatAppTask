@@ -19,13 +19,13 @@ export class MessageService {
     return this.http.get<IMessage[]>(`${this.baseUrl}Message/GetAllMessagesForUser/${userId}`);
   }
 
-  sendMessage(message: IMessage, receviedId: number) {
+  sendMessage(message: IMessage, receviedId: number = 0) {
     const formData = new FormData();
     formData.append('SenderId', message.senderId.toString());
     if (message.groupId) {
       formData.append('GroupId', message.groupId.toString());
     } else {
-      if (receviedId) {
+      if (receviedId != 0) {
         formData.append('ReceiverId', receviedId.toString());
       }
     }

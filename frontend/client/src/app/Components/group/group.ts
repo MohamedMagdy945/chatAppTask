@@ -6,10 +6,13 @@ import { IUser } from '../../Models/user';
 import { environment } from '../../../environments/environment.development';
 import { AccountService } from '../../Services/account-service';
 import { ChatRoom } from '../chat-room/chat-room';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { GroupDialogComponent } from '../group-dialog/group-dialog';
+import { ChatRoomGroup } from '../chat-room-group/chat-room-group';
 
 @Component({
   selector: 'app-group',
-  imports: [FormsModule, ChatRoom],
+  imports: [FormsModule, ChatRoomGroup, MatDialogModule],
   templateUrl: './group.html',
   styleUrl: './group.scss',
 })
@@ -20,7 +23,18 @@ export class Group implements OnInit {
 
   recevieduser!: IUser;
 
-  constructor(private groupService: GroupService, private accountSerice: AccountService) {}
+  constructor(
+    private groupService: GroupService,
+    private accountSerice: AccountService,
+    private dialog: MatDialog
+  ) {}
+
+  openDialog() {
+    const dialogRef = this.dialog.open(GroupDialogComponent, {
+      width: '400px',
+      data: { groupName: '' },
+    });
+  }
 
   baseURL = environment.baseUrl;
   isOpen = false;
@@ -43,13 +57,7 @@ export class Group implements OnInit {
     this.groupService.getAllGroups().subscribe({
       next: (res) => {
         this.groups = res;
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
+        
       },
       error: (err) => console.error(err),
     });
@@ -60,19 +68,14 @@ export class Group implements OnInit {
 
     const formData = new FormData();
     formData.append('name', this.newGroupName);
-
-    this.loading = true;
-
     this.groupService.createGroup(formData).subscribe({
       next: (res: any) => {
         this.groups.push(res);
         this.newGroupName = '';
         form.resetForm();
-        this.loading = false;
       },
       error: (err) => {
         console.error(err);
-        this.loading = false;
       },
     });
   }

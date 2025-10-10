@@ -1,5 +1,5 @@
 export interface IGroup {
   name: string;
-  userCreatedId: number;
-  groupImage?: File;
+  id: number;
+  groupImagePath?: string;
 }
